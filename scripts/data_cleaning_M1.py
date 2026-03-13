@@ -13,14 +13,17 @@ def import_data(url):
 
     data_text = response.text
 
+  
     if not os.path.exists("data"):
         os.makedirs("data")
 
     file_path = os.path.join("data", "dataset_M1.txt")
 
+  
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(data_text)
 
+ 
     with open(file_path, "r", encoding="utf-8") as f:
         data_lines = f.readlines()
 
@@ -48,18 +51,24 @@ def clean_data(data_text_list):
 
         cleaned_rows.append(row)
 
+   
     if not os.path.exists("output"):
         os.makedirs("output")
 
     output_file = os.path.join("output", "cleaned_data_M1.txt")
 
+   
     with open(output_file, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerows(cleaned_rows)
 
     cleaned_text_lines = [",".join(row) + "\n" for row in cleaned_rows]
+
     return cleaned_text_lines
-    url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2023-01-01&endtime=2023-01-02"
+
+
+
+url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2023-01-01&endtime=2023-01-02"
 
 data = import_data(url)
 cleaned_data = clean_data(data)
